@@ -1,0 +1,4 @@
+psycopg2-binary==2.9.9
+pandas==2.1.4
+reportlab==4.0.9
+schedule==1.2.1

@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+MAVEN_PROJECTBASEDIR=$(pwd)
+WRAPPER_PROPERTIES="$MAVEN_PROJECTBASEDIR/.mvn/wrapper/maven-wrapper.properties"
+DISTRIBUTION_URL=$(grep "distributionUrl" "$WRAPPER_PROPERTIES" | sed 's/distributionUrl=//')
+MAVEN_VERSION=$(echo "$DISTRIBUTION_URL" | grep -oE 'apache-maven-[0-9.]+' | head -1)
+MAVEN_HOME="$HOME/.m2/wrapper/dists/$MAVEN_VERSION"
+if [ ! -d "$MAVEN_HOME" ]; then
+  mkdir -p "$HOME/.m2/wrapper/dists"
+  TMP_ZIP="$HOME/.m2/wrapper/dists/${MAVEN_VERSION}.zip"
+  if command -v curl > /dev/null; then
+    curl -fL -o "$TMP_ZIP" "$DISTRIBUTION_URL"
+  elif command -v wget > /dev/null; then
+    wget -O "$TMP_ZIP" "$DISTRIBUTION_URL"
+  else
+    echo "curl or wget required"; exit 1
+  fi
+  unzip -qq "$TMP_ZIP" -d "$HOME/.m2/wrapper/dists"
+  rm -f "$TMP_ZIP"
+fi
+MVN_BIN=$(find "$HOME/.m2/wrapper/dists/$MAVEN_VERSION" -name "mvn" -not -name "*.cmd" -type f 2>/dev/null | head -1)
+if [ -z "$MVN_BIN" ]; then
+  MVN_BIN=$(find "$HOME/.m2/wrapper/dists" -name "mvn" -not -name "*.cmd" -type f 2>/dev/null | head -1)
+fi
+exec "$MVN_BIN" "$@"

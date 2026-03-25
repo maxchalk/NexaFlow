@@ -1,0 +1,40 @@
+# Environment
+.env
+.env.local
+**/.env.local
+**/application-local.properties
+
+# Maven
+**/target/
+**/.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Node
+**/node_modules/
+**/dist/
+**/build/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+*.DS_Store
+
+# Reports
+reports/
+
+# Logs
+*.log
+logs/
+
+# Gradle (if used)
+.gradle/
